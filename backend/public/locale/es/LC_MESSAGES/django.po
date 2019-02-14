@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-23 06:04+0000\n"
+"POT-Creation-Date: 2019-02-14 02:17+0000\n"
 "PO-Revision-Date: 2016-03-10 15:40+GMT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,9 +16,6 @@ msgstr ""
 
 msgid "personal info"
 msgstr "información personal"
-
-msgid "job info"
-msgstr "información de trabajo"
 
 msgid "permissions info"
 msgstr "informació de permisos"
@@ -46,12 +43,6 @@ msgstr "nombre"
 msgid "last name"
 msgstr "apelido"
 
-msgid "employee id"
-msgstr "ID de empleado"
-
-msgid "workstation"
-msgstr "puesto de trabajo"
-
 msgid "phone number"
 msgstr "número de teléfono"
 
@@ -64,18 +55,6 @@ msgstr "es admin"
 msgid "can login to the django admin."
 msgstr "puede iniciar sesión en el sitio administrativo."
 
-msgid "city"
-msgstr "ciudad"
-
-msgid "corporation"
-msgstr "corporación"
-
-msgid "organization"
-msgstr "organización"
-
-msgid "hours"
-msgstr "horas"
-
 msgid "created at"
 msgstr "creado a las"
 
@@ -87,15 +66,6 @@ msgstr "cuenta"
 
 msgid "This field is required."
 msgstr "Este campo es requerido."
-
-msgid "Unauthorized email account."
-msgstr "Cuenta de correo electrónico no autorizada."
-
-msgid "New registered account in"
-msgstr "Nueva cuenta registrada en"
-
-msgid "Join the volunteer force!"
-msgstr "¡Únete a la fuerza de voluntariado!"
 
 msgid "Username/password combination invalid."
 msgstr "Nombre de usuario / contraseña combinación no válida."
@@ -147,312 +117,3 @@ msgstr "Inglés"
 
 msgid "Spanish"
 msgstr "Español"
-
-msgid "corporations"
-msgstr "corporaciones"
-
-msgid "name"
-msgstr "nombre"
-
-msgid "subname"
-msgstr "sub nombre"
-
-msgid "business name for emails"
-msgstr "nombre empresarial para emails"
-
-msgid "primary logo"
-msgstr "logo primario"
-
-msgid "secondary logo"
-msgstr "logo secundario"
-
-msgid "color"
-msgstr "color"
-
-msgid "phrase"
-msgstr "frase"
-
-msgid "email"
-msgstr "email"
-
-msgid "domain app"
-msgstr "dominio de la app"
-
-msgid "domain api"
-msgstr "dominio del api"
-
-msgid "default: is admin?"
-msgstr "Por defecto: ¿es admin?"
-
-msgid "validate domain"
-msgstr "validar dominio"
-
-msgid "workplace link"
-msgstr "Link de workplace"
-
-msgid "workplace name"
-msgstr "nombre de workplace"
-
-msgid "simple"
-msgstr "simple"
-
-msgid "list"
-msgstr "lista"
-
-msgid "country"
-msgstr "país"
-
-msgid "state"
-msgstr "estado"
-
-msgid "This field must be filled in when they are list type fields"
-msgstr "Este campo debe rellenarse cuando se trata de campos de tipo de lista"
-
-msgid "corporation field"
-msgstr "campo corporativo"
-
-msgid "corporation fields"
-msgstr "campos corporativos"
-
-msgid "corporation does not exist."
-msgstr "la corporación no existe"
-
-msgid "Affiliated Organizations"
-msgstr "Organizaciones Afiliadas"
-
-msgid "Number of Volunteers"
-msgstr "Número de Voluntarios"
-
-msgid "Volunteer Hours"
-msgstr "Horas de Voluntariado"
-
-msgid "Number of Assists"
-msgstr "Número de Asistencias"
-
-msgid "Volunteers"
-msgstr "Voluntarios"
-
-msgid "Organizations"
-msgstr "Organizaciones"
-
-msgid "Areas"
-msgstr "Áreas"
-
-msgid "Without area"
-msgstr "Sin área"
-
-msgid "Activities"
-msgstr "Actividades"
-
-msgid "Activity"
-msgstr "Actividad"
-
-msgid "events"
-msgstr "eventos"
-
-msgid "organizations"
-msgstr "organizaciones"
-
-msgid "activity"
-msgstr "actividad"
-
-msgid "cause"
-msgstr "causa"
-
-msgid "impact"
-msgstr "impacto"
-
-msgid "datamarts"
-msgstr "datamarts"
-
-msgid "Duplicate events"
-msgstr "Duplicar eventos"
-
-msgid "description"
-msgstr "descripción"
-
-msgid "responsibilities"
-msgstr "responsabilidades"
-
-msgid "responsible name"
-msgstr "nombre del responsable"
-
-msgid "responsible phone number"
-msgstr "número de teléfono del responsable"
-
-msgid "responsible email"
-msgstr "email del responsable"
-
-msgid "activities"
-msgstr "actividades"
-
-msgid "start date time"
-msgstr "fecha y hora de inicio"
-
-msgid "end date time"
-msgstr "fecha y hora de fin"
-
-msgid "location"
-msgstr "ubicación"
-
-msgid "account limit"
-msgstr "limite de cuentas"
-
-msgid "cover image"
-msgstr "imagen de portada"
-
-msgid "is archived"
-msgstr "está archivado"
-
-msgid "is enable"
-msgstr "está habilitado"
-
-msgid "event"
-msgstr "evento"
-
-msgid "image"
-msgstr "imagen"
-
-msgid "event image"
-msgstr "imagene de evento"
-
-msgid "event images"
-msgstr "imagenes de eventos"
-
-msgid "Registered"
-msgstr "Registrado"
-
-msgid "Canceled"
-msgstr "Cancelado"
-
-msgid "Checked"
-msgstr "Comprobado"
-
-msgid "Attended"
-msgstr "Asistió"
-
-msgid "Not attended"
-msgstr "No asistió"
-
-msgid "date attendance"
-msgstr "fecha de asistencia"
-
-msgid "account event"
-msgstr "cuenta en evento"
-
-msgid "accounts events"
-msgstr "cuentas en eventos"
-
-msgid "date"
-msgstr "fecha"
-
-msgid "event location"
-msgstr "ubicación de evento"
-
-msgid "event locations"
-msgstr "ubicación de eventos"
-
-msgid "values"
-msgstr "valores"
-
-msgid "result"
-msgstr "resultados"
-
-msgid "event activity"
-msgstr "actividad del evento"
-
-msgid "event activities"
-msgstr "actividades de eventos"
-
-msgid "Invalid organization."
-msgstr "Organización invalidad."
-
-msgid "Required field"
-msgstr "Campo requerido"
-
-msgid "Invalid date"
-msgstr "Fecha invalidad"
-
-msgid "Maximum capacity reached."
-msgstr "Capacidad máxima alcanzada"
-
-msgid "You have a reservation for this day"
-msgstr "Ya tienes una reservación para este día"
-
-msgid "Does not belong to this corporation"
-msgstr "No pertenece a esta corporación"
-
-msgid "Already registered in"
-msgstr "Ya estás inscrito en"
-
-msgid "Registration Notice"
-msgstr "Aviso de registro"
-
-msgid "There is nothing left for your volunteer event!"
-msgstr "¡Ya no queda nada para tu evento de voluntariado!"
-
-msgid "There are only a few days left to"
-msgstr "Solo quedan unos pocos días para"
-
-msgid "Remember to verify attendance"
-msgstr "Recordatoria para verificar asistencia"
-
-msgid "We would like to know your opinion of"
-msgstr "Nos gustaría saber tu opinión de"
-
-msgid "Email not found"
-msgstr "Email no encontrado"
-
-msgid "locations"
-msgstr "ubicaciones"
-
-msgid "countries"
-msgstr "países"
-
-msgid "states"
-msgstr "estados"
-
-msgid "cities"
-msgstr "ciudades"
-
-msgid "parent"
-msgstr "pertenece"
-
-msgid "causes"
-msgstr "Causas"
-
-msgid "A cause cannot depend on it self"
-msgstr "Una causa no puede depender de ella misma"
-
-msgid "the variables H and P are required in the formula of impact"
-msgstr "las variables H y P son requeridas en la fórmula de impacto"
-
-msgid "notation"
-msgstr "notación"
-
-msgid "Example: H=Hours, P=Persons, it is notations have reservate"
-msgstr "Ejemplo: H=Horas, P=Personas, esas notaciones estas reservada"
-
-msgid "var"
-msgstr "variable"
-
-msgid "vars"
-msgstr "variables"
-
-msgid "notation is already reservate"
-msgstr "notación reservada"
-
-msgid "National"
-msgstr "Nacional"
-
-msgid "International"
-msgstr "Internacional"
-
-msgid "scope"
-msgstr "alcance"
-
-msgid "responsible"
-msgstr "responsable"
-
-msgid "No {} matches the given query in corporation."
-msgstr "No {} concuerda con la consulta dada en la corporación"
