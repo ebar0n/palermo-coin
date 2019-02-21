@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import environ
+
 from django.utils.translation import ugettext_lazy as _
 
 root = environ.Path(__file__) - 3
@@ -190,3 +191,7 @@ if not DOCS:
 
 LOGIN_URL = '/admin/login/'
 LOGOUT_URL = '/admin/logout/'
+
+if env.bool('HEROKU_ENABLE'):
+    import django_heroku
+    django_heroku.settings(locals())
