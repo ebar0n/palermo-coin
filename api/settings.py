@@ -104,12 +104,14 @@ if TEST:
     EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
 BROKER_URL = env('BROKER_URL')
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': env('CACHE'),
+
+if env('CACHE'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'redis_cache.RedisCache',
+            'LOCATION': env('CACHE'),
+        }
     }
-}
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
