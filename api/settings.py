@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import environ
-
 from django.utils.translation import ugettext_lazy as _
 
-root = environ.Path(__file__) - 3
+root = environ.Path(__file__) - 2
 env = environ.Env()
 
 BASE_DIR = root()
