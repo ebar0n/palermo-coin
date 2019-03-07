@@ -8,6 +8,7 @@ from django.urls import path, re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('accounts.urls')),
+    url('api/social/', include('social_django.urls', namespace='social')),
     re_path('static/(.*)$', django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
     re_path('media/(.*)$', django.views.static.serve, {'document_root': settings.MEDIA_ROOT}),
 ]
