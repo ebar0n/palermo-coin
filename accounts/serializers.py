@@ -22,9 +22,9 @@ class AccountSerializer(serializers.ModelSerializer):
         model = models.Account
         fields = (
             'id', 'email', 'first_name', 'last_name',
-            'phone_number', 'is_staff', 'is_superuser',
+            'phone_number', 'points', 'is_staff', 'is_superuser',
         )
-        read_only_fields = ('id', 'is_staff', 'is_superuser')
+        read_only_fields = ('id', 'points', 'is_staff', 'is_superuser')
 
     def create(self, validated_data):
         """
