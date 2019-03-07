@@ -4,7 +4,8 @@ import datetime
 import json
 import uuid
 
-from django.contrib.auth import authenticate, login, logout
+from django.conf import settings
+from django.contrib.auth import logout
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from rest_framework import permissions, status, viewsets
@@ -12,7 +13,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from django.shortcuts import redirect
 from accounts import mixins, models, serializers
 from accounts.permissions import IsAdminOrAccountOwner
 from utils import language
@@ -25,6 +26,31 @@ class LoginView(APIView):
 
     """
     permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        account = request.user
+        if account.is_authenticated:
+            logout(request)
+            if account.is_active:
+                token, created = Token.objects.get_or_create(user=account)
+                if not settings.FRONTEND_LOGIN_REDIRECT_URL:
+                    serialized_account = serializers.AccountSerializer(account)
+                    data = serialized_account.data
+                    data['token'] = token.pk
+                    return Response(data)
+
+                else:
+                    return redirect('{}?token={}'.format(settings.FRONTEND_LOGIN_REDIRECT_URL, token.pk))
+            else:
+                return Response({
+                    'status': 'Unauthorized',
+                    'message': _('Your account has been disabled.')
+                }, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({
+                'status': 'Unauthorized',
+                'message': _('Username/password combination invalid.')
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
     def post(self, request, *args, **kwargs):
         """
@@ -50,7 +76,6 @@ class LoginView(APIView):
 
         if account and account.check_password(password):
             if account.is_active:
-                login(request, account)
                 serialized_account = serializers.AccountSerializer(account)
                 data = serialized_account.data
 
@@ -247,10 +272,6 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
 
         account.set_password(data.get('new_password'))
         account.save(update_fields=['password', 'updated_at'])
-
-        # Force authentication with new credentials
-        account = authenticate(username=account.username, password=data.get('new_password'))
-        login(request, account)
 
         return Response({}, status.HTTP_204_NO_CONTENT)
 
