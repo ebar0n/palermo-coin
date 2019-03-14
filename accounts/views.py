@@ -39,9 +39,13 @@ class LoginView(APIView):
                     data = serialized_account.data
                     data['token'] = token.pk
                     return Response(data)
-
                 else:
-                    return redirect('{}?token={}'.format(settings.FRONTEND_LOGIN_REDIRECT_URL, token.pk))
+                    return redirect(
+                        '{}?token={}'.format(
+                            settings.FRONTEND_LOGIN_REDIRECT_URL,
+                            base64.urlsafe_b64encode(token.pk.encode()).decode()
+                        )
+                    )
             else:
                 return Response({
                     'status': 'Unauthorized',
