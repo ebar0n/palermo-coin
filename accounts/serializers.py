@@ -24,9 +24,9 @@ class AccountSerializer(serializers.ModelSerializer):
             'id', 'email', 'first_name', 'last_name',
             'phone_number', 'birthdate', 'baptism', 'civil_status',
             'educational_level', 'area_knowledge', 'school', 'interests',
-            'is_staff', 'is_superuser',
+            'points', 'is_staff', 'is_superuser',
         )
-        read_only_fields = ('id', 'is_staff', 'is_superuser')
+        read_only_fields = ('id', 'points', 'is_staff', 'is_superuser')
 
     def create(self, validated_data):
         """

@@ -21,15 +21,16 @@ class AccountAdmin(admin.ModelAdmin):
         (_('permissions info'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
         }),
-        (_('dates info'), {'fields': ('last_login', 'created_at', 'updated_at',)}),
+        (_('other info'), {'fields': ('points', 'last_login', 'created_at', 'updated_at')}),
     )
     filter_horizontal = ('groups', 'user_permissions',)
     form = AccountChangeForm
+    list_display = ('email', 'points', 'is_active', 'is_staff', 'is_superuser')
     list_display = ('email', 'is_active', 'is_staff', 'is_superuser')
     list_filter = (
         'birthdate', 'baptism', 'civil_status', 'educational_level', 'is_staff', 'is_active',
         'is_superuser', 'created_at'
     )
     ordering = ('created_at',)
-    readonly_fields = ('last_login', 'created_at', 'updated_at')
+    readonly_fields = ('points', 'last_login', 'created_at', 'updated_at')
     search_fields = ('email',)

@@ -6,6 +6,7 @@ import uuid
 
 from django.conf import settings
 from django.contrib.auth import logout
+from django.db.utils import IntegrityError
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -17,6 +18,7 @@ from rest_framework.views import APIView
 
 from accounts import mixins, models, serializers
 from accounts.permissions import IsAdminOrAccountOwner
+from codes.models import Code, CodeRedeemed
 from utils import language
 from utils.tasks.emails import send_mail
 
@@ -299,3 +301,26 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
         if models.Account.objects.filter(email=email).exists():
             status_code = status.HTTP_406_NOT_ACCEPTABLE
         return Response({}, status=status_code)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAdminOrAccountOwner])
+    def redeemed(self, request, *args, **kwargs):
+        account = self.get_object()
+
+        try:
+            code = Code.objects.get(uuid=request.data.get('uuid'))
+        except Code.DoesNotExist:
+            return Response({
+                'status': 'Bad request',
+                'message': _('Invalid code.')
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            CodeRedeemed.objects.create(account=account, code=code)
+        except IntegrityError:
+            return Response({
+                'status': 'Bad request',
+                'message': _('Already redeemed')
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        account.refresh_from_db()
+        return Response({'points': account.points}, status.HTTP_204_NO_CONTENT)

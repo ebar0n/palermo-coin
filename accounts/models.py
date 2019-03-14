@@ -97,6 +97,7 @@ class Account(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     reset_password_key_expires = models.DateTimeField(null=True, editable=False)
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name=_('updated at'), auto_now=True)
+    points = models.PositiveIntegerField(default=0, editable=False)
 
     objects = AccountManager()
     USERNAME_FIELD = 'email'
