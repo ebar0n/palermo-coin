@@ -6,6 +6,7 @@ import uuid
 
 from django.conf import settings
 from django.contrib.auth import logout
+from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from rest_framework import permissions, status, viewsets
@@ -13,7 +14,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.shortcuts import redirect
+
 from accounts import mixins, models, serializers
 from accounts.permissions import IsAdminOrAccountOwner
 from utils import language

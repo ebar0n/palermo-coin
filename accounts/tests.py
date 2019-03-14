@@ -135,6 +135,7 @@ def client_auth(client, url_login, account, monkeypatch):
     }
     request = client.post(path=url_login, data=data, format='json')
     assert request.status_code == status.HTTP_200_OK
+    client.credentials(HTTP_AUTHORIZATION='Token ' + request.data.get('token'))
     return client
 
 
@@ -175,9 +176,12 @@ def test_login_succesfull(client, url_login, url_detail, account, monkeypatch):
     assert request.data.get('email') is not None, 'User not logged'
     assert request.data.get('token') is not None, 'Not create token'
 
-    request = client.get(path=url_detail(request.data.get('id')), format='json')
+    client.credentials(HTTP_AUTHORIZATION='Token ' + request.data.get('token'))
+    request = client.get(
+        path=url_detail(request.data.get('id')),
+        format='json'
+    )
     assert request.status_code == status.HTTP_200_OK, 'Fails to retrieve account'
-    assert '_auth_user_id' in client.session._session, 'User is authenticated'
 
 
 @pytest.mark.django_db
@@ -197,7 +201,6 @@ def test_login_failed_login(client, url_login):
     }
     request = client.post(path=url_login, data=data, format='json')
     assert request.status_code == status.HTTP_401_UNAUTHORIZED, 'Fails to login account'
-    assert '_auth_user_id' not in client.session._session, 'User is authenticated'
 
 
 @pytest.mark.django_db
@@ -219,7 +222,6 @@ def test_login_failed_login_credentials(client, url_login, account, monkeypatch)
     request = client.post(path=url_login, data=data, format='json')
     assert request.status_code == status.HTTP_401_UNAUTHORIZED, 'Fails to login account'
     assert request.data.get('message') == _('Username/password combination invalid.'), 'Unauthorized'
-    assert '_auth_user_id' not in client.session._session, 'User is authenticated'
 
 
 @pytest.mark.django_db
@@ -235,7 +237,6 @@ def test_logout_succesfull(client_auth, url_logout, account):
     """
     request = client_auth.post(path=url_logout, format='json')
     assert request.status_code == status.HTTP_204_NO_CONTENT
-    assert '_auth_user_id' not in client_auth.session._session, 'User is authenticated'
 
 
 @pytest.mark.django_db
@@ -251,7 +252,6 @@ def test_logout_failed_credentials(client, url_logout):
     request = client.post(path=url_logout, format='json')
     assert request.status_code == status.HTTP_403_FORBIDDEN, 'Fails to login account'
     assert request.data.get('detail') == _('Authentication credentials were not provided.'), 'User is logged'
-    assert '_auth_user_id' not in client.session._session, 'User is authenticated'
 
 
 ############
@@ -282,7 +282,6 @@ def test_client_add_account_valid(client, url, monkeypatch):
     assert Account.objects.count() == 1, 'Count is different in db'
     assert obj.check_password(data.get('password')) is True, 'The password do not match'
     assert obj.email == data.get('email'), 'The email do not match'
-    assert '_auth_user_id' in client.session._session, 'User is unauthenticaded'
 
 
 @pytest.mark.django_db
@@ -309,7 +308,6 @@ def test_client_add_account_valid_with_full_data(client, url, account, monkeypat
     assert Account.objects.count() == 2
     assert obj.check_password(data.get('password')) is True, 'The password do not match'
     assert obj.email == data.get('email'), 'The email do not match'
-    assert '_auth_user_id' in client.session._session, 'User is unauthenticaded'
 
 
 @pytest.mark.django_db
@@ -370,7 +368,7 @@ def test_client_add_account_invalid_password(client, url, account, monkeypatch):
     request = client.post(path=url, data=data, format='json')
     assert request.status_code == status.HTTP_400_BAD_REQUEST, 'Error code must be 400'
     assert request.data.get('password')[0] == _(
-       _('Must include a capital letter')
+        _('Must include a capital letter')
     ), 'Failed password'
 
     data['password'] = '123aAa789'
@@ -538,7 +536,6 @@ def test_client_delete_fail(client, url_detail, account):
         account: Create Account object
 
     """
-    assert '_auth_user_id' not in client.session._session, _('User is authenticated')
     request = client.delete(path=url_detail(account.pk), format='json')
     assert request.status_code == status.HTTP_403_FORBIDDEN, 'Not fails to delete account'
     assert Account.objects.count() == 1, 'Incorrect number objects of account'
