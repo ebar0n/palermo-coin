@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.utils.translation import ugettext as _
 
 from codes import models
 
 
 @admin.register(models.Code)
-class AccountAdmin(admin.ModelAdmin):
+class CodeAdmin(admin.ModelAdmin):
     list_display = ('title', 'points', 'qr', 'expires', 'created_at')
     list_filter = ('expires', 'created_at')
     readonly_fields = ('qr',)
@@ -15,7 +14,7 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.CodeRedeemed)
-class AccountAdmin(admin.ModelAdmin):
+class CodeRedeemedAdmin(admin.ModelAdmin):
     list_display = ('account', 'code', 'created_at')
     list_filter = ('code', 'created_at')
     ordering = ('created_at',)
