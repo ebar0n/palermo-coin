@@ -22,7 +22,9 @@ class AccountSerializer(serializers.ModelSerializer):
         model = models.Account
         fields = (
             'id', 'email', 'first_name', 'last_name',
-            'phone_number', 'points', 'is_staff', 'is_superuser',
+            'phone_number', 'birthdate', 'baptism', 'civil_status',
+            'educational_level', 'area_knowledge', 'school', 'interests',
+            'points', 'is_staff', 'is_superuser',
         )
         read_only_fields = ('id', 'points', 'is_staff', 'is_superuser')
 

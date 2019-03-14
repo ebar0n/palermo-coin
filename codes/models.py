@@ -1,11 +1,12 @@
 import uuid
 from io import BytesIO
 
-import qrcode
 from django.core.files import File
 from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
+
+import qrcode
 
 
 class Code(models.Model):
