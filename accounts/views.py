@@ -314,13 +314,19 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
                 'message': _('Invalid code.')
             }, status=status.HTTP_400_BAD_REQUEST)
 
+        if code.expires < timezone.now():
+            return Response({
+                'status': 'Bad request',
+                'message': _('Already expired.')
+            }, status=status.HTTP_400_BAD_REQUEST)
+
         try:
             CodeRedeemed.objects.create(account=account, code=code)
         except IntegrityError:
             return Response({
                 'status': 'Bad request',
-                'message': _('Already redeemed')
+                'message': _('Already redeemed.')
             }, status=status.HTTP_400_BAD_REQUEST)
 
         account.refresh_from_db()
-        return Response({'points': account.points}, status.HTTP_204_NO_CONTENT)
+        return Response({'points': code.points})
