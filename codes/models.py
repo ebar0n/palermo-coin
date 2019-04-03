@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 class Code(models.Model):
     title = models.CharField(max_length=50)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    uuid = models.UUIDField(default=uuid.uuid4)
     qr = models.ImageField(upload_to='qr', null=True)
     points = models.PositiveSmallIntegerField()
     expires = models.DateTimeField()

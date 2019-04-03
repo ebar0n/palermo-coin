@@ -8,7 +8,7 @@ from codes import models
 class CodeAdmin(admin.ModelAdmin):
     list_display = ('title', 'points', 'qr', 'expires', 'created_at')
     list_filter = ('expires', 'created_at')
-    readonly_fields = ('qr',)
+    readonly_fields = ('qr', 'uuid')
     ordering = ('expires',)
     search_fields = ('title',)
 
