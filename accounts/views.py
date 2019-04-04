@@ -10,9 +10,11 @@ from django.db.utils import IntegrityError
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions, status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -124,6 +126,9 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
     ViewSet for Accounts
 
     """
+    filter_backends = (DjangoFilterBackend, SearchFilter)
+    filter_fields = ('birthdate', 'civil_status', 'educational_level')
+    search_fields = ('email', 'first_name', 'last_name')
     queryset = models.Account.objects.all()
 
     def get_serializer_class(self):
