@@ -100,6 +100,14 @@ class CheckEmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
 
+class CodeRedeemedSerializer(serializers.Serializer):
+    """
+    Code Serializer
+
+    """
+    uuid = serializers.UUIDField(format='hex_verbose')
+
+
 class LoginSerializer(serializers.Serializer):
     """
     Login Serializer

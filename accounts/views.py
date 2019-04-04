@@ -25,7 +25,7 @@ from utils.tasks.emails import send_mail
 
 class LoginView(APIView):
     """
-    Login View
+    Authentication confirmation for social auth
 
     """
     permission_classes = (permissions.AllowAny,)
@@ -125,7 +125,22 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
 
     """
     queryset = models.Account.objects.all()
-    serializer_class = serializers.AccountSerializer
+
+    def get_serializer_class(self):
+        serializer = serializers.AccountSerializer
+
+        if self.action == 'reset_password_ask':
+            serializer = serializers.ResetPasswordAskSerializer
+        elif self.action == 'reset_password_change':
+            serializer = serializers.ResetPasswordChangueSerializer
+        elif self.action == 'change_password':
+            serializer = serializers.ChanguePasswordSerializer
+        elif self.action == 'check_email':
+            serializer = serializers.CheckEmailSerializer
+        elif self.action == 'redeemed':
+            serializer = serializers.CodeRedeemedSerializer
+
+        return serializer
 
     def get_queryset(self):
         """
@@ -161,7 +176,7 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
         Get account authenticated
 
         """
-        serializer = serializers.AccountSerializer(request.user)
+        serializer = self.get_serializer_class()(request.user)
         return Response(serializer.data)
 
     @action(detail=False, methods=['post'], permission_classes=[permissions.AllowAny])
@@ -170,9 +185,8 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
         Reset password ask of the account
 
         """
-        serializer = serializers.ResetPasswordAskSerializer(
-            data=request.data
-        )
+        serializer = self.get_serializer_class()(data=request.data)
+
         if not serializer.is_valid():
             return Response({'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
 
@@ -221,9 +235,8 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
         Reset password change of the account
 
         """
-        serializer = serializers.ResetPasswordChangueSerializer(
-            data=request.data
-        )
+        serializer = self.get_serializer_class()(data=request.data)
+
         if not serializer.is_valid():
             return Response({'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
 
@@ -264,9 +277,8 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
 
         """
         account = self.get_object()
-        serializer = serializers.ChanguePasswordSerializer(
-            data=request.data
-        )
+        serializer = self.get_serializer_class()(data=request.data)
+
         if not serializer.is_valid():
             return Response({'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
 
@@ -288,9 +300,8 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
         Verifies the existence of a registered account with an email
 
         """
-        serializer = serializers.CheckEmailSerializer(
-            data=request.data
-        )
+        serializer = self.get_serializer_class()(data=request.data)
+
         if not serializer.is_valid():
             return Response({'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
 
@@ -304,10 +315,20 @@ class AccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'], permission_classes=[IsAdminOrAccountOwner])
     def redeemed(self, request, *args, **kwargs):
+        """
+        Redeem codes for points
+
+        """
+
         account = self.get_object()
 
+        serializer = self.get_serializer_class()(data=request.data)
+
+        if not serializer.is_valid():
+            return Response({'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
+
         try:
-            code = Code.objects.get(uuid=request.data.get('uuid'))
+            code = Code.objects.get(uuid=serializer.data.get('uuid'))
         except Code.DoesNotExist:
             return Response({
                 'status': 'Bad request',
