@@ -38,7 +38,7 @@ gunicorn==19.9.0
 idna==2.8
 isort==4.3.4
 itypes==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 kombu==4.5.0
 MarkupSafe==1.1.0
 more-itertools==6.0.0
