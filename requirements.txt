@@ -50,7 +50,7 @@ pep8==1.7.1
 Pillow==5.4.1
 pluggy==0.8.1
 psycopg2==2.7.7
-py==1.7.0
+py==1.10.0
 pyasn1==0.4.5
 pycparser==2.19
 pyflakes==2.1.0
